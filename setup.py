@@ -2,10 +2,20 @@
 
 from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py
+# import six
+# if six.PY3:
+#     from urllib import request
+#     urlretrieve = request.urlretrieve
+# else:
+#     from urllib2 import urlretrieve
+import requests
 
+<<<<<<< HEAD
 import requests
 import shutil
 
+=======
+>>>>>>> nicain/feature/python2
 import json
 import pickle
 import os
@@ -24,11 +34,11 @@ class CustomBuild(build_py):
         url = "https://bitbucket.org/lblneuro/nwb-schema/downloads/nwb_core.tar"
         dest = "nwb_core.tar"
         print('getting NWB specification')
+        r = requests.get(url)
+        with open(dest, "wb") as code:
+            code.write(r.content)
 
-        response = requests.get(url, stream=True)
-        with open(dest, 'wb') as out_file:
-            shutil.copyfileobj(response.raw, out_file)
-
+        # schema = urlretrieve(url, dest)
         tf = TarFile(dest, 'r')
         tf.extractall(schema_dir)
         super(CustomBuild, self).run()
