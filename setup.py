@@ -3,7 +3,9 @@
 from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py
 
-from urllib.request import urlretrieve
+import requests
+import shutil
+
 import json
 import pickle
 import os
@@ -22,7 +24,11 @@ class CustomBuild(build_py):
         url = "https://bitbucket.org/lblneuro/nwb-schema/downloads/nwb_core.tar"
         dest = "nwb_core.tar"
         print('getting NWB specification')
-        schema = urlretrieve(url, dest)
+
+        response = requests.get(url, stream=True)
+        with open(dest, 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+
         tf = TarFile(dest, 'r')
         tf.extractall(schema_dir)
         super(CustomBuild, self).run()
@@ -69,5 +75,3 @@ if __name__ == '__main__':
 
     #get_schema()
     setup(**setup_args)
-
-
