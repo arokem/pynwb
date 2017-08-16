@@ -8,14 +8,10 @@ from setuptools.command.build_py import build_py
 #     urlretrieve = request.urlretrieve
 # else:
 #     from urllib2 import urlretrieve
-import requests
 
-<<<<<<< HEAD
 import requests
 import shutil
 
-=======
->>>>>>> nicain/feature/python2
 import json
 import pickle
 import os
