@@ -16,7 +16,8 @@ FLAGS = {
     'one_or_many': ONE_OR_MANY
 }
 
-class ConstructableDict(dict, metaclass=abc.ABCMeta):
+class ConstructableDict(dict):
+    __metaclass__ = abc.ABCMeta
     @classmethod
     def build_const_args(cls, spec_dict):
         ''' Build constructor arguments for this ConstructableDict class from a dictionary '''
@@ -755,4 +756,3 @@ class GroupSpec(BaseStorageSpec):
         if 'links' in ret:
             ret['links'] = list(map(cls.link_spec_cls().build_spec, ret['links']))
         return ret
-
